@@ -4,16 +4,16 @@ package homeloan
 type AnnualDetail struct {
 
 	// AnnualEMIAmount is the total EMI amount paid during AnnualDetail.Year
-	AnnualEMIAmount int `json:"annual_emi_amount"`
+	AnnualEMIAmount float64 `json:"annual_emi_amount"`
 
 	// AnnualInterest is the amount from AnnualEMIAmount which is the
 	// interest paid during the Year
-	AnnualInterest int `json:"annual_interest"`
+	AnnualInterest float64 `json:"annual_interest"`
 
 	// AnuualTaxSaved is the tax saved considering tax benefits u/s 24
 	// where borrower can claim exemption upto 2L on interest paid
 	// during the financial year
-	AnuualTaxSaved int `json:"annual_tax_saved"`
+	AnnualTaxSaved float64 `json:"annual_tax_saved"`
 
 	// MonthlyEMIs is the array of EMIs for the financial year AnnualDetail.Year
 	MonthyEMIs []EMI `json:"monthly_emis"`
@@ -27,29 +27,29 @@ type AnnualDetail struct {
 type Data struct {
 
 	// AnnualInterestRate is the annual percentage interest levied for the loan borrowed
-	AnnualInterestRate float32 `json:"annual_interest_rate"`
+	AnnualInterestRate float64 `json:"annual_interest_rate"`
 
 	// LoanAmount is the total amount borrowed from lender
-	LoanAmount int `json:"loan_amount"`
+	LoanAmount float64 `json:"loan_amount"`
 
 	// LoanTenure is the number of years this loan is suppose to be settle in
-	LoanTenure int `json:"loan_tenure"`
+	LoanTenure float64 `json:"loan_tenure"`
 }
 
 // EMI struct defines the EMI resource paid on a monthly basis
 type EMI struct {
 
 	// EMIAmount is the total EMI amount paid to the lender
-	EMIAmount int `json:"emi_amount"`
+	EMIAmount float64 `json:"emi_amount"`
 
 	// Month is the month of the EMI in a financial year
 	Month int `json:"month"`
 
 	// TowardsInterest is the amount from the EMIAmount paid towards interest of the loan
-	TowardsInterest int `json:"towards_interest"`
+	TowardsInterest float64 `json:"towards_interest"`
 
 	// Towards Principle is the amount from the EMIAmount paid towards principle of the loan
-	TowardsPrinciple int `json:"towards_principle"`
+	TowardsPrinciple float64 `json:"towards_principle"`
 }
 
 // StrategyInfo defines the complete comparison of different strategies to settle loan
@@ -61,7 +61,7 @@ type StrategyInfo struct {
 	AnnualDetails []AnnualDetail `json:"annual_details"`
 
 	// AnnualEMIPercentageHike is the percentage hike on the existing EMI amount
-	AnnualEMIPercentageHike int `json:"annual_emi_percentage_hike"`
+	AnnualEMIPercentageHike float64 `json:"annual_emi_percentage_hike"`
 
 	// TotalInterest is the total interest paid for the loan in StrategyInfo.TotalYearsToSettle
 	TotalInterest int `json:"total_interest"`
