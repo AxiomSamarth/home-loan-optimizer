@@ -8,6 +8,8 @@ import (
 	"net/http"
 )
 
+var taxSlab = 0.3
+
 func computeStandardEMI(data Data) float64 {
 	var (
 		loanAmount          = data.LoanAmount
@@ -27,7 +29,7 @@ func updateAnnualDetails(annualDetail AnnualDetail, strategyInfo *StrategyInfo) 
 		annualDetail.AnnualEMIAmount += emi.EMIAmount
 	}
 
-	annualDetail.AnnualTaxSaved = annualDetail.AnnualInterest * 0.3
+	annualDetail.AnnualTaxSaved = annualDetail.AnnualInterest * taxSlab
 	strategyInfo.AnnualDetails = append(strategyInfo.AnnualDetails, annualDetail)
 }
 
@@ -45,7 +47,7 @@ func computeStrategies(data Data) []StrategyInfo {
 		recommendations []StrategyInfo
 	)
 
-	for yearlyPercentageHike := 0; yearlyPercentageHike <= 5; yearlyPercentageHike += 5 {
+	for yearlyPercentageHike := 0; yearlyPercentageHike <= 20; yearlyPercentageHike += 5 {
 		var (
 			principle    = data.LoanAmount
 			annualDetail AnnualDetail
@@ -55,7 +57,6 @@ func computeStrategies(data Data) []StrategyInfo {
 
 		for month := 1; month < int(data.LoanTenure*12)+1; month++ {
 			if principle <= 0 {
-				fmt.Printf("%d\n", month)
 				break
 			}
 
