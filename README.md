@@ -1,3 +1,4 @@
+![Build](https://github.com/AxiomSamarth/home-loan-optimizer/actions/workflows/workflow.yaml/badge.svg)
 # Table of contents
 
 - [Home Loan Optimizer](#home-loan-optimizer)

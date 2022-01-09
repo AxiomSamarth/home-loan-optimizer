@@ -1,0 +1,28 @@
+name: unit-test
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout main branch
+        uses: actions/checkout@v2
+
+      - name: setup go
+        uses: actions/setup-go@v2
+        with:
+          stable: 'true'
+          go-version: '1.17'
+
+      - name: install depedencies and run unit tests
+        run: |
+          go mod vendor
+          cd ./pkg/homeloan
+          go test
