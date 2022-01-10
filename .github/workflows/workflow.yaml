@@ -25,4 +25,5 @@ jobs:
         run: |
           go mod vendor
           cd ./pkg/homeloan
-          go test
+          GO111MODULE=on go install github.com/onsi/ginkgo/ginkgo@v1.16.5
+          ginkgo
