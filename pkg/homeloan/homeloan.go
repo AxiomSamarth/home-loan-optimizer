@@ -8,7 +8,10 @@ import (
 	"net/http"
 )
 
-var taxSlab = 0.3
+var (
+	taxSlab                    = 0.3
+	taxExemptionUnderSection24 = 200000.0
+)
 
 func computeStandardEMI(data Data) float64 {
 	var (
@@ -29,7 +32,11 @@ func updateAnnualDetails(annualDetail AnnualDetail, strategyInfo *StrategyInfo) 
 		annualDetail.AnnualEMIAmount += emi.EMIAmount
 	}
 
-	annualDetail.AnnualTaxSaved = annualDetail.AnnualInterest * taxSlab
+	if annualDetail.AnnualInterest > taxExemptionUnderSection24 {
+		annualDetail.AnnualTaxSaved = taxExemptionUnderSection24 * taxSlab
+	} else {
+		annualDetail.AnnualTaxSaved = annualDetail.AnnualInterest * taxSlab
+	}
 	strategyInfo.AnnualDetails = append(strategyInfo.AnnualDetails, annualDetail)
 }
 
